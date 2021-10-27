@@ -13,6 +13,20 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - uses: actions/cache@v2
+      with:
+        # In order:
+        # * Module download cache   ~/go/pkg/mod
+        # * Build cache (Linux)     ~/.cache/go-build
+        # * Build cache (Mac)       ~/Library/Caches/go-build
+        # * Build cache (Windows)   %LocalAppData%\go-build
+        path: |
+          ~/go/pkg/mod
+          ~/.cache/go-build
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
+
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
