@@ -20,3 +20,13 @@ jobs:
         with:
           push: false
           tags: gotwithactions:latest
+          cache-from: type=registry,ref=gotwithactions:latest
+          cache-to: type=inline
+
+          #cache-from: type=local,src=/tmp/.buildx-cache
+          #cache-to: type=local,dest=/tmp/.buildx-cache-new
+
+      #- name: Move cache
+      #  run: |
+      #    rm -rf /tmp/.buildx-cache
+      #    mv /tmp/.buildx-cache-new /tmp/.buildx-cache
