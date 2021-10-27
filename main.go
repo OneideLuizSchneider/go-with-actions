@@ -3,11 +3,13 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
+	"os"
 	"runtime"
 
-	"github.com/joho/godotenv"
+	//"github.com/joho/godotenv"
+	//"github.com/joho/godotenv/cmd/godotenv"
+	_ "github.com/joho/godotenv/autoload"
 )
 
 type Hello struct {
@@ -19,13 +21,13 @@ var helloWorld Hello = Hello{
 }
 
 func main() {
+
 	fmt.Printf("Go version: %s\n", runtime.Version())
 	fmt.Printf("Go with cache :D")
+	fmt.Printf("More logs...")
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	fmt.Printf("Key: ", os.Getenv("key"))
+	fmt.Printf("Key: ", os.Getenv("HELLO"))
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
