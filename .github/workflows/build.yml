@@ -20,8 +20,12 @@ jobs:
         with:
           push: false
           tags: gotwithactions:latest
-          cache-from: type=registry,ref=gotwithactions:latest
-          cache-to: type=inline
+          # maximum cache
+          cache-from: type=registry,ref=gotwithactions:buildcache
+          cache-to: type=registry,ref=gotwithactions:buildcache,mode=max
+          # minimum cache
+          #cache-from: type=registry,ref=gotwithactions:latest
+          #cache-to: type=inline
 
           #cache-from: type=local,src=/tmp/.buildx-cache
           #cache-to: type=local,dest=/tmp/.buildx-cache-new
