@@ -21,7 +21,6 @@ var helloWorld Hello = Hello{
 func main() {
 	fmt.Printf("Go version: %s\n", runtime.Version())
 	fmt.Printf("Go with cache :D")
-	fmt.Printf("PR :D")
 
 	err := godotenv.Load()
 	if err != nil {
