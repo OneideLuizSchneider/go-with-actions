@@ -34,7 +34,6 @@ jobs:
           #cache-from: type=registry,ref=gotwithactions:latest
           #cache-to: type=inline
 
-
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       # Temp fix
