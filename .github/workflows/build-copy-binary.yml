@@ -1,0 +1,54 @@
+name: Test
+
+#on:
+#  push:
+#    branches: [ main ]
+on:
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/cache@v2
+      with:
+        # In order:
+        # * Module download cache   ~/go/pkg/mod
+        # * Build cache (Linux)     ~/.cache/go-build
+        # * Build cache (Mac)       ~/Library/Caches/go-build
+        # * Build cache (Windows)   %LocalAppData%\go-build
+        path: |
+          ~/go/pkg/mod
+          ~/.cache/go-build
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.17
+
+    - name: Build
+      run: go build -v .
+    
+    - name: Build and push
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        push: false
+        tags: gotwithactions:latest
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new
+    # Temp fix
+    # https://github.com/docker/build-push-action/issues/252
+    # https://github.com/moby/buildkit/issues/1896    
+    - name: Move cache
+      run: |
+        rm -rf /tmp/.buildx-cache
+        mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+      
