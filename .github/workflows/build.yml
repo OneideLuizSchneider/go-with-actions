@@ -20,9 +20,14 @@ jobs:
         with:
           push: false
           tags: gotwithactions:latest
-          # maximum cache
-          cache-from: type=registry,ref=gotwithactions:buildcache
-          cache-to: type=registry,ref=gotwithactions:buildcache,mode=max
+          # experimental cache
+          # https://github.com/docker/build-push-action/blob/master/docs/advanced/cache.md
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+          # registry cache
+          #cache-from: type=registry,ref=gotwithactions:buildcache
+          #cache-to: type=registry,ref=gotwithactions:buildcache,mode=max
           # minimum cache
           #cache-from: type=registry,ref=gotwithactions:latest
           #cache-to: type=inline
