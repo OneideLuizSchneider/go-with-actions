@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"os"
 	"runtime"
 
 	//"github.com/joho/godotenv"
@@ -25,9 +24,6 @@ func main() {
 	fmt.Printf("Go version: %s\n", runtime.Version())
 	fmt.Printf("Go with cache :D")
 	fmt.Printf("More logs...")
-
-	fmt.Printf("Key: ", os.Getenv("key"))
-	fmt.Printf("Key: ", os.Getenv("HELLO"))
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
