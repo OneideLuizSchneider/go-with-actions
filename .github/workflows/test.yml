@@ -1,12 +1,8 @@
 name: Test
 
-#on:
-#  pull_request:
-#    types: [ opened, synchronize, reopened ]
 on:
-  push:
-    branches: [ main ]
-
+  pull_request:
+    types: [ opened, synchronize, reopened ]
 
 jobs:
 
