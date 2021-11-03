@@ -39,3 +39,6 @@ jobs:
 
     - name: Build Binary
       run: go build -v .  
+
+    - name: Show folder
+      run: ls -l  
